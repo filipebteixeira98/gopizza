@@ -4,7 +4,9 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 
-import { Container, Content, Title } from './styles';
+import brandImg from '@assets/brand.png';
+
+import { Container, Content, Title, Brand } from './styles';
 
 export function SignIn() {
   return (
@@ -13,6 +15,7 @@ export function SignIn() {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <Content>
+          <Brand source={brandImg} />
           <Title>Login</Title>
           <Input
             placeholder="E-mail"
