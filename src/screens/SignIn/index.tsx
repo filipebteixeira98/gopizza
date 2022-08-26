@@ -6,7 +6,14 @@ import { Button } from '@components/Button';
 
 import brandImg from '@assets/brand.png';
 
-import { Container, Content, Title, Brand } from './styles';
+import {
+  Container,
+  Content,
+  Title,
+  Brand,
+  ForgotPasswordButton,
+  ForgotPasswordLabel,
+} from './styles';
 
 export function SignIn() {
   return (
@@ -24,6 +31,9 @@ export function SignIn() {
             autoCapitalize="none"
           />
           <Input placeholder="Password" type="secondary" secureTextEntry />
+          <ForgotPasswordButton>
+            <ForgotPasswordLabel>Forgot my password</ForgotPasswordLabel>
+          </ForgotPasswordButton>
           <Button title="Sign in" type="secondary" />
         </Content>
       </KeyboardAvoidingView>
