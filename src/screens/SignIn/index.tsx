@@ -23,8 +23,8 @@ export function SignIn() {
 
   const { signIn, isLogging } = useAuth();
 
-  async function handleSignIn() {
-    await signIn(email, password);
+  function handleSignIn() {
+    signIn(email, password);
   }
 
   return (
