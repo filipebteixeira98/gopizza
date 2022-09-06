@@ -19,6 +19,7 @@ type User = {
 type AuthContextData = {
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
   isLogging: boolean;
   user: User | null;
 };
@@ -107,12 +108,35 @@ function AuthProvider({ children }: AuthProviderProps) {
     setUser(null);
   }
 
+  async function forgotPassword(email: string) {
+    if (!email) {
+      return Alert.alert('Redefine password', 'Inform the e-mail');
+    }
+
+    auth()
+      .sendPasswordResetEmail(email)
+      .then(() =>
+        Alert.alert(
+          'Redefine password',
+          'A link has been sent to your e-mail for redefine password'
+        )
+      )
+      .catch(() =>
+        Alert.alert(
+          'Redefine password',
+          'Could not sent an e-mail to this account for redefine password'
+        )
+      );
+  }
+
   useEffect(() => {
     loadUserStorageData();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, signOut, isLogging, user }}>
+    <AuthContext.Provider
+      value={{ signIn, signOut, forgotPassword, isLogging, user }}
+    >
       {children}
     </AuthContext.Provider>
   );
