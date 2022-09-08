@@ -2,7 +2,14 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { Container, Header, Title, DeleteLabel } from './styles';
+import {
+  Container,
+  Header,
+  Title,
+  DeleteLabel,
+  Upload,
+  PickImageButton,
+} from './styles';
 
 import { ButtonBack } from '@components/ButtonBack';
 import { Photo } from '@components/Photo';
@@ -17,7 +24,10 @@ export function Product() {
           <DeleteLabel>Delete</DeleteLabel>
         </TouchableOpacity>
       </Header>
-      <Photo uri="" />
+      <Upload>
+        <Photo uri="" />
+        <PickImageButton title="Upload" type="secondary" />
+      </Upload>
     </Container>
   );
 }
