@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Container, Header, Title, DeleteLabel } from './styles';
 
 import { ButtonBack } from '@components/ButtonBack';
+import { Photo } from '@components/Photo';
 
 export function Product() {
   return (
@@ -16,6 +17,7 @@ export function Product() {
           <DeleteLabel>Delete</DeleteLabel>
         </TouchableOpacity>
       </Header>
+      <Photo uri="" />
     </Container>
   );
 }
