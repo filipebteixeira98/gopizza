@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Platform, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 import {
   Container,
@@ -62,6 +64,35 @@ export function Product() {
     if (!priceSizeP || !priceSizeM || !priceSizeG) {
       return Alert.alert('Register', 'Give the price of all pizza sizes');
     }
+
+    setIsLoading(true);
+
+    const fileName = new Date().getTime();
+
+    const reference = storage().ref(`/pizzas/${fileName}.png`);
+
+    await reference.putFile(image);
+
+    const photo_url = await reference.getDownloadURL();
+
+    firestore()
+      .collection('pizzas')
+      .add({
+        name,
+        name_insensitive: name.toLowerCase().trim(),
+        description,
+        price_sizes: {
+          p: priceSizeP,
+          m: priceSizeM,
+          g: priceSizeG,
+        },
+        photo_url,
+        photo_path: reference.fullPath,
+      })
+      .then(() => Alert.alert('Register', 'Pizza successfully registered'))
+      .catch(() => Alert.alert('Register', 'Could not register pizza'));
+
+    setIsLoading(false);
   }
 
   return (
