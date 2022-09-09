@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Platform, TouchableOpacity, ScrollView } from 'react-native';
+import { Platform, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 import {
@@ -43,6 +43,24 @@ export function Product() {
       if (!result.cancelled) {
         setImage(result.uri);
       }
+    }
+  }
+
+  async function handleAdd() {
+    if (!name.trim()) {
+      return Alert.alert('Register', 'Give the name of the pizza');
+    }
+
+    if (!description.trim()) {
+      return Alert.alert('Register', 'Give the description of the pizza');
+    }
+
+    if (!image) {
+      return Alert.alert('Register', 'Select pizza image');
+    }
+
+    if (!priceSizeP || !priceSizeM || !priceSizeG) {
+      return Alert.alert('Register', 'Give the price of all pizza sizes');
     }
   }
 
@@ -100,7 +118,11 @@ export function Product() {
               value={priceSizeG}
             />
           </InputGroup>
-          <Button title="Register pizza" isLoading={isLoading} />
+          <Button
+            title="Register pizza"
+            isLoading={isLoading}
+            onPress={handleAdd}
+          />
         </Form>
       </ScrollView>
     </Container>
