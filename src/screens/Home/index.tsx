@@ -9,6 +9,9 @@ import {
   Greeting,
   GreetingEmoji,
   GreetingText,
+  Title,
+  MenuHeader,
+  MenuItemsNumber,
 } from './styles';
 
 import { Search } from '@components/Search';
@@ -30,6 +33,10 @@ export function Home() {
         </TouchableOpacity>
       </Header>
       <Search onSearch={() => {}} onClear={() => {}} />
+      <MenuHeader>
+        <Title>Menu</Title>
+        <MenuItemsNumber>10 pizzas</MenuItemsNumber>
+      </MenuHeader>
     </Container>
   );
 }
