@@ -15,6 +15,7 @@ import {
 } from './styles';
 
 import { Search } from '@components/Search';
+import { ProductCard } from '@components/ProductCard';
 
 import happyEmoji from '@assets/happy.png';
 
@@ -37,6 +38,14 @@ export function Home() {
         <Title>Menu</Title>
         <MenuItemsNumber>10 pizzas</MenuItemsNumber>
       </MenuHeader>
+      <ProductCard
+        data={{
+          id: '1',
+          name: 'Pizza Awesome',
+          description: 'Ingredients',
+          photo_url: 'https://github.com/filipebteixeira98.png',
+        }}
+      />
     </Container>
   );
 }
