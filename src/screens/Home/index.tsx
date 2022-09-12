@@ -23,6 +23,8 @@ import happyEmoji from '@assets/happy.png';
 export function Home() {
   const [pizzas, setPizzas] = useState<ProductProps[]>([]);
 
+  const [search, setSearch] = useState('');
+
   const { COLORS } = useTheme();
 
   function fetchPizzas(value: string) {
@@ -47,6 +49,16 @@ export function Home() {
       .catch(() => Alert.alert('Query', 'Could not resolve query'));
   }
 
+  function handleSearch() {
+    fetchPizzas(search);
+  }
+
+  function handleSearchClear() {
+    setSearch('');
+
+    fetchPizzas('');
+  }
+
   useEffect(() => {
     fetchPizzas('');
   }, []);
@@ -62,7 +74,12 @@ export function Home() {
           <MaterialIcons name="logout" color={COLORS.TITLE} size={24} />
         </TouchableOpacity>
       </Header>
-      <Search onSearch={() => {}} onClear={() => {}} />
+      <Search
+        onChangeText={setSearch}
+        value={search}
+        onSearch={handleSearch}
+        onClear={handleSearchClear}
+      />
       <MenuHeader>
         <Title>Menu</Title>
         <MenuItemsNumber>10 pizzas</MenuItemsNumber>
