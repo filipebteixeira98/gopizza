@@ -9,7 +9,7 @@ export const Container = styled.KeyboardAvoidingView`
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
 `;
 
-export const Header = styled<any>(LinearGradient).attrs(({ theme }) => ({
+export const Header = styled(LinearGradient).attrs(({ theme }) => ({
   colors: theme.COLORS.GRADIENT,
 }))`
   width: 100%;

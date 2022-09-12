@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components/native';
-import { TouchableOpacity } from 'react-native';
 
 export type TypeProps = 'primary' | 'secondary';
 
@@ -7,7 +6,7 @@ type ContainerProps = {
   type: TypeProps;
 };
 
-export const Container = styled<any>(TouchableOpacity)<ContainerProps>`
+export const Container = styled.TouchableOpacity<ContainerProps>`
   flex: 1;
   max-height: 56px;
   min-height: 56px;
@@ -20,6 +19,7 @@ export const Container = styled<any>(TouchableOpacity)<ContainerProps>`
 
 export const Title = styled.Text`
   font-size: 14px;
+
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TEXT};
     color: ${theme.COLORS.TITLE};
