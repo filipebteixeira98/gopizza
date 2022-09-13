@@ -124,6 +124,19 @@ export function Product() {
     navigation.goBack();
   }
 
+  function handleDelete() {
+    firestore()
+      .collection('pizzas')
+      .doc(id)
+      .delete()
+      .then((response) => {
+        storage()
+          .ref(photoPath)
+          .delete()
+          .then(() => navigation.navigate('home'));
+      });
+  }
+
   useEffect(() => {
     if (id) {
       firestore()
@@ -151,7 +164,7 @@ export function Product() {
           <ButtonBack onPress={handleGoBack} />
           <Title>Register</Title>
           {id ? (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleDelete}>
               <DeleteLabel>Delete</DeleteLabel>
             </TouchableOpacity>
           ) : (
