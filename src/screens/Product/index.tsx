@@ -114,10 +114,12 @@ export function Product() {
         photo_url,
         photo_path: reference.fullPath,
       })
-      .then(() => Alert.alert('Register', 'Pizza successfully registered'))
-      .catch(() => Alert.alert('Register', 'Could not register pizza'));
+      .then(() => navigation.navigate('home'))
+      .catch(() => {
+        setIsLoading(false);
 
-    setIsLoading(false);
+        Alert.alert('Register', 'Could not register pizza');
+      });
   }
 
   function handleGoBack() {
