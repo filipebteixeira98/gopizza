@@ -3,7 +3,7 @@ import { Platform, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 import {
   Container,
@@ -49,6 +49,8 @@ export function Product() {
 
   const route = useRoute();
   const { id } = route.params as ProductNavigationProps;
+
+  const navigation = useNavigation();
 
   async function handlePickerImage() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -112,6 +114,10 @@ export function Product() {
     setIsLoading(false);
   }
 
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
   useEffect(() => {
     if (id) {
       firestore()
@@ -136,7 +142,7 @@ export function Product() {
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header>
-          <ButtonBack />
+          <ButtonBack onPress={handleGoBack} />
           <Title>Register</Title>
           <TouchableOpacity>
             <DeleteLabel>Delete</DeleteLabel>
