@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import {
+  Platform,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+  View,
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
@@ -144,17 +150,23 @@ export function Product() {
         <Header>
           <ButtonBack onPress={handleGoBack} />
           <Title>Register</Title>
-          <TouchableOpacity>
-            <DeleteLabel>Delete</DeleteLabel>
-          </TouchableOpacity>
+          {id ? (
+            <TouchableOpacity>
+              <DeleteLabel>Delete</DeleteLabel>
+            </TouchableOpacity>
+          ) : (
+            <View style={{ width: 20 }} />
+          )}
         </Header>
         <Upload>
           <Photo uri={image} />
-          <PickImageButton
-            onPress={handlePickerImage}
-            title="Upload"
-            type="secondary"
-          />
+          {!id && (
+            <PickImageButton
+              onPress={handlePickerImage}
+              title="Upload"
+              type="secondary"
+            />
+          )}
         </Upload>
         <Form>
           <InputGroup>
@@ -192,11 +204,13 @@ export function Product() {
               value={priceSizeG}
             />
           </InputGroup>
-          <Button
-            title="Register pizza"
-            isLoading={isLoading}
-            onPress={handleAdd}
-          />
+          {!id && (
+            <Button
+              title="Register pizza"
+              isLoading={isLoading}
+              onPress={handleAdd}
+            />
+          )}
         </Form>
       </ScrollView>
     </Container>
