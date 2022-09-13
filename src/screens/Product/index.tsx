@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Platform, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import firestore from '@react-native-firebase/firestore';
@@ -24,8 +24,18 @@ import { ButtonBack } from '@components/ButtonBack';
 import { Input } from '@components/Input';
 import { InputPrice } from '@components/InputPrice';
 import { Photo } from '@components/Photo';
+import { ProductProps } from '@components/ProductCard';
 
 import { ProductNavigationProps } from '@src/@types/navigation';
+
+type PizzaResponse = ProductProps & {
+  photo_path: string;
+  price_sizes: {
+    p: string;
+    m: string;
+    g: string;
+  };
+};
 
 export function Product() {
   const [image, setImage] = useState('');
@@ -35,11 +45,10 @@ export function Product() {
   const [priceSizeM, setPriceSizeM] = useState('');
   const [priceSizeG, setPriceSizeG] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [photoPath, setPhotoPath] = useState('');
 
   const route = useRoute();
   const { id } = route.params as ProductNavigationProps;
-
-  console.log(id);
 
   async function handlePickerImage() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -102,6 +111,26 @@ export function Product() {
 
     setIsLoading(false);
   }
+
+  useEffect(() => {
+    if (id) {
+      firestore()
+        .collection('pizzas')
+        .doc(id)
+        .get()
+        .then((response) => {
+          const product = response.data() as PizzaResponse;
+
+          setName(product.name);
+          setImage(product.photo_url);
+          setDescription(product.description);
+          setPriceSizeP(product.price_sizes.p);
+          setPriceSizeM(product.price_sizes.m);
+          setPriceSizeG(product.price_sizes.g);
+          setPhotoPath(product.photo_path);
+        });
+    }
+  }, [id]);
 
   return (
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
