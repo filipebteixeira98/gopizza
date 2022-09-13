@@ -14,6 +14,7 @@ import {
   Title,
   MenuHeader,
   MenuItemsNumber,
+  NewProductButton,
 } from './styles';
 
 import { Search } from '@components/Search';
@@ -66,6 +67,10 @@ export function Home() {
     navigation.navigate('product', { id });
   }
 
+  function handleAdd() {
+    navigation.navigate('product', {});
+  }
+
   useEffect(() => {
     fetchPizzas('');
   }, []);
@@ -103,6 +108,11 @@ export function Home() {
           paddingBottom: 125,
           marginHorizontal: 24,
         }}
+      />
+      <NewProductButton
+        title="Register Pizza"
+        type="secondary"
+        onPress={handleAdd}
       />
     </Container>
   );
