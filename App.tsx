@@ -7,9 +7,9 @@ import { ThemeProvider } from 'styled-components/native';
 
 import { AuthProvider } from '@hooks/auth';
 
-import theme from '@src/theme';
+import theme from './src/theme';
 
-import { Routes } from '@src/routes';
+import { Routes } from './src/routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({

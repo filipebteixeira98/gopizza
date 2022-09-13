@@ -3,6 +3,7 @@ import { Alert, TouchableOpacity, FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from 'styled-components/native';
 import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 import {
   Container,
@@ -26,6 +27,8 @@ export function Home() {
   const [search, setSearch] = useState('');
 
   const { COLORS } = useTheme();
+
+  const navigation = useNavigation();
 
   function fetchPizzas(value: string) {
     const formattedValue = value.toLowerCase().trim();
@@ -59,6 +62,10 @@ export function Home() {
     fetchPizzas('');
   }
 
+  function handleNavigate(id: string) {
+    navigation.navigate('product', { id });
+  }
+
   useEffect(() => {
     fetchPizzas('');
   }, []);
@@ -87,7 +94,9 @@ export function Home() {
       <FlatList
         data={pizzas}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ProductCard data={item} />}
+        renderItem={({ item }) => (
+          <ProductCard data={item} onPress={() => handleNavigate(item.id)} />
+        )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingTop: 20,
