@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
 
-import { Container, Header } from './styles';
+import { Container, Header, Photo } from './styles';
 
 import { ButtonBack } from '@components/ButtonBack';
 
@@ -11,6 +11,7 @@ export function Order() {
       <Header>
         <ButtonBack onPress={() => {}} style={{ marginBottom: 108 }} />
       </Header>
+      <Photo source={{ uri: 'https://github.com/filipebteixeira98.png' }} />
     </Container>
   );
 }
