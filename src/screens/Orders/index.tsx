@@ -1,7 +1,13 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, Header, Title } from './styles';
 
 export function Orders() {
-  return <Container />;
+  return (
+    <Container>
+      <Header>
+        <Title>Orders made</Title>
+      </Header>
+    </Container>
+  );
 }
