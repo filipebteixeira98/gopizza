@@ -11,7 +11,7 @@ import theme from './src/theme';
 
 // import { Routes } from './src/routes';
 
-import { Order } from '@screens/Order';
+import { Orders } from '@screens/Orders';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,7 +27,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StatusBar style="light" translucent backgroundColor="transparent" />
       <AuthProvider>
-        <Order />
+        <Orders />
       </AuthProvider>
     </ThemeProvider>
   );
