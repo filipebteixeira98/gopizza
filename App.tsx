@@ -9,9 +9,7 @@ import { AuthProvider } from '@hooks/auth';
 
 import theme from './src/theme';
 
-// import { Routes } from './src/routes';
-
-import { Orders } from '@screens/Orders';
+import { Routes } from './src/routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,7 +25,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StatusBar style="light" translucent backgroundColor="transparent" />
       <AuthProvider>
-        <Orders />
+        <Routes />
       </AuthProvider>
     </ThemeProvider>
   );
