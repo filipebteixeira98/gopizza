@@ -17,6 +17,8 @@ import {
   NewProductButton,
 } from './styles';
 
+import { useAuth } from '@hooks/auth';
+
 import { Search } from '@components/Search';
 import { ProductCard, ProductProps } from '@components/ProductCard';
 
@@ -26,6 +28,8 @@ export function Home() {
   const [pizzas, setPizzas] = useState<ProductProps[]>([]);
 
   const [search, setSearch] = useState('');
+
+  const { signOut } = useAuth();
 
   const { COLORS } = useTheme();
 
@@ -84,7 +88,7 @@ export function Home() {
           <GreetingEmoji source={happyEmoji} />
           <GreetingText>Hello, Admin</GreetingText>
         </Greeting>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={signOut}>
           <MaterialIcons name="logout" color={COLORS.TITLE} size={24} />
         </TouchableOpacity>
       </Header>
