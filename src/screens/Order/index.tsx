@@ -17,6 +17,8 @@ import {
   Price,
 } from './styles';
 
+import { useAuth } from '@hooks/auth';
+
 import { ButtonBack } from '@components/ButtonBack';
 import { RadioButton } from '@components/RadioButton';
 import { Input } from '@components/Input';
@@ -38,6 +40,9 @@ export function Order() {
   const [pizza, setPizza] = useState<PizzaResponse>({} as PizzaResponse);
   const [quantity, setQuantity] = useState(0);
   const [tableNumber, setTableNumber] = useState('');
+  const [sendingOrder, setSendingOrder] = useState(false);
+
+  const { user } = useAuth();
 
   const navigation = useNavigation();
 
@@ -48,6 +53,41 @@ export function Order() {
 
   function handleGoBack() {
     navigation.goBack();
+  }
+
+  function handleOrder() {
+    if (!size) {
+      return Alert.alert('Request', 'Select pizza size');
+    }
+
+    if (!tableNumber) {
+      return Alert.alert('Request', 'Enter table number');
+    }
+
+    if (!quantity) {
+      return Alert.alert('Request', 'Inform the amount');
+    }
+
+    setSendingOrder(true);
+
+    firestore()
+      .collection('orders')
+      .add({
+        quantity,
+        amount,
+        pizza: pizza.name,
+        size,
+        table_number: tableNumber,
+        status: 'Preparing',
+        waiter_id: user?.id,
+        image: pizza.photo_url,
+      })
+      .then(() => navigation.navigate('home'))
+      .catch(() => {
+        Alert.alert('Request', 'Could not place order');
+
+        setSendingOrder(false);
+      });
   }
 
   useEffect(() => {
@@ -95,7 +135,11 @@ export function Order() {
             </InputGroup>
           </FormRow>
           <Price>Total of ${amount}</Price>
-          <Button title="Confirm Order" />
+          <Button
+            title="Confirm Order"
+            onPress={handleOrder}
+            isLoading={sendingOrder}
+          />
         </Form>
       </ContentScroll>
     </Container>
