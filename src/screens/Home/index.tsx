@@ -68,7 +68,9 @@ export function Home() {
   }
 
   function handleNavigate(id: string) {
-    navigation.navigate('product', { id });
+    const route = user?.isAdmin ? 'product' : 'order';
+
+    navigation.navigate(route, { id });
   }
 
   function handleAdd() {
