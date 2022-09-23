@@ -29,7 +29,7 @@ export function Home() {
 
   const [search, setSearch] = useState('');
 
-  const { signOut } = useAuth();
+  const { user, signOut } = useAuth();
 
   const { COLORS } = useTheme();
 
@@ -115,11 +115,13 @@ export function Home() {
           marginHorizontal: 24,
         }}
       />
-      <NewProductButton
-        title="Register Pizza"
-        type="secondary"
-        onPress={handleAdd}
-      />
+      {user?.isAdmin && (
+        <NewProductButton
+          title="Register Pizza"
+          type="secondary"
+          onPress={handleAdd}
+        />
+      )}
     </Container>
   );
 }
