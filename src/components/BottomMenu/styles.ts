@@ -37,7 +37,7 @@ export const Notification = styled.View<NotificationProps>`
     `}
 
   ${({ theme, noNotifications }) =>
-    !noNotifications &&
+    noNotifications &&
     css`
       background-color: transparent;
       border: 1px solid ${theme.COLORS.SHAPE};
